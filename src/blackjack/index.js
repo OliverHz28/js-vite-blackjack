@@ -1,4 +1,10 @@
 import _ from 'underscore';
+import { crearDeck } from './usecases/crear-deck';
+import { pedirCarta } from './usecases/pedir-carta';
+// import crearDeck, { miNombre } from './usecases/crear-deck';
+// import cualquierNombreParaCrearUnNuevoDeck from './usecases/crear-deck'; Por defecto
+
+// console.log( miNombre );
 
 (() => {
 
@@ -19,7 +25,7 @@ import _ from 'underscore';
 
   // Esta función inicializa el juego
   const inicializarJuego = ( numJugadores = 2) => {
-      deck = crearDeck();
+      deck = crearDeck( tipos, especiales);
       puntosJugadores = [];
       for (let i = 0; i < numJugadores; i++) {
           puntosJugadores.push(0);
@@ -32,36 +38,6 @@ import _ from 'underscore';
       btnPedir.disabled   = false;
   }
           
-  // Esta función crea un nuevo Deck 
-  const crearDeck = () => {
-
-      deck = [];
-      for( let i = 2; i <= 10; i++ ){
-          for( let tipo of tipos){
-              deck.push( i + tipo);
-          }
-      }
-
-      for( let tipo of tipos ) {
-          for( let esp of especiales ) {
-              deck.push(esp + tipo);
-          }
-      }
-
-      // console.log( deck ); 
-      return _.shuffle( deck );
-  }
-
-  // Esta función me permite tomar una carta
-  const pedirCarta = (  ) => {
-
-      if ( deck.length === 0 ){
-          throw 'No hay cartas en el deck';
-      }
-
-      return deck.pop();;
-  }
-
   const valorCarta = ( carta ) => {
       const valor = carta.substring( 0, carta.length - 1 );
       return ( isNaN( valor ) ) ? 
@@ -110,7 +86,7 @@ import _ from 'underscore';
   const turnoComputadora = ( puntosMinimos ) => {
       let puntosComputadora;
       do {
-          const carta             = pedirCarta() ; 
+          const carta       = pedirCarta( deck ); 
           puntosComputadora = acumularPuntos( carta, 1 );
           crearCarta(carta, puntosJugadores.length - 1);
 
@@ -125,7 +101,7 @@ import _ from 'underscore';
 
   btnPedir.addEventListener('click', () => {
       
-      const carta = pedirCarta() ; 
+      const carta = pedirCarta( deck ) ; 
       const puntosJugador = acumularPuntos(carta, 0);        
       crearCarta( carta, 0)
 
