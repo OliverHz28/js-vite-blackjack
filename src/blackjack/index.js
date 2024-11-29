@@ -1,11 +1,6 @@
 import _ from 'underscore';
-import { crearDeck } from './usecases/crear-deck';
-import { pedirCarta } from './usecases/pedir-carta';
-import { valorCarta } from './usecases/valor-carta';
-// import crearDeck, { miNombre } from './usecases/crear-deck';
-// import cualquierNombreParaCrearUnNuevoDeck from './usecases/crear-deck'; Por defecto
 
-// console.log( miNombre );
+import {crearDeck, pedirCarta, valorCarta } from './usecases';
 
 (() => {
 
